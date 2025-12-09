@@ -31,8 +31,8 @@ jobs:
 
             const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
             
-            // UPDATED: Changed from 10 to 20
-            const POSTS_TO_KEEP = 20;
+            // UPDATED: Changed limit to 40
+            const POSTS_TO_KEEP = 40;
 
             async function run() {
               console.log('Fetching all posts to determine which to archive...');
@@ -53,11 +53,9 @@ jobs:
 
               const postIdsToDelete = [];
               for (const post of postsToArchive) {
-                // UPDATED: Added like_count and view_count to extraction
                 const { id, headline, content, author_name, timestamp, tags, is_pinned, like_count, view_count } = post;
                 if (is_pinned) continue;
 
-                // UPDATED: Mapped counts to 'likes' and 'views' in frontmatter
                 const frontmatter = { 
                   headline, 
                   author_name, 
@@ -87,7 +85,7 @@ jobs:
             }
             run().catch(err => { console.error(err); process.exit(1); });
           EOF
-      
+       
       - name: Commit and Push Changes
         id: commit_push
         run: |
@@ -96,7 +94,7 @@ jobs:
           git add _posts/
           if ! git diff-index --quiet HEAD; then
             echo "changes=true" >> $GITHUB_OUTPUT
-            git commit -m 'feat: Archive older live posts (limit 20)'
+            git commit -m 'feat: Archive older live posts (limit 40)'
             git push
           else
             echo "changes=false" >> $GITHUB_OUTPUT
