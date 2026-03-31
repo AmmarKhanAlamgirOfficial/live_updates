@@ -394,45 +394,87 @@ document.addEventListener('DOMContentLoaded', () => {
             embed.style.display = 'block !important';
         });
     }
-
-    // Process all post bodies
-    function processAllPosts() {
-        const postBodies = document.querySelectorAll('.post-body');
+     
+    // NEW BULLETPROOF JS Filter: Converts both Jekyll links AND raw markdown text into Rich Embeds
+function processAllPosts() {
+    console.log('Running bulletproof embed filter...');
+    const postBodies = document.querySelectorAll('.post-body');
+    
+    // Helper function to generate the correct HTML widget
+    function getWidgetHTML(platform, caption, url) {
+        platform = platform.toLowerCase();
+        // Clean up stray characters from the caption (pipes, dashes, extra spaces)
+        caption = caption ? caption.replace(/^[\s\|-]+/, '').trim() : ''; 
         
-        if (postBodies.length === 0) {
-            console.log('No post bodies found to process');
-            return;
-        }
+        const captionHtml = caption ? `<div class="tmp-embed-caption">${caption}</div>` : '';
 
-        console.log(`Processing ${postBodies.length} post bodies...`);
-
-        postBodies.forEach((postBody, index) => {
-            const rawContent = postBody.dataset.rawContent;
-            if (rawContent) {
-                console.log(`Processing post body ${index + 1}`);
-                try {
-                    const finalHtml = parseRawContent(rawContent);
-                    postBody.innerHTML = finalHtml;
-                    
-                    // Add loaded class for styling
-                    postBody.classList.add('content-loaded');
-                    
-                } catch (error) {
-                    console.error(`Error processing post body ${index + 1}:`, error);
-                    postBody.innerHTML = `
-                        <div class="embed-error">
-                            <p><i class="fas fa-exclamation-triangle mr-2"></i>Error loading content</p>
-                            <p class="text-sm">Please refresh the page or try again later.</p>
-                        </div>
-                    `;
-                }
-            } else {
-                console.warn(`Post body ${index + 1} has no raw content data`);
+        if (platform.includes('twitter')) {
+            const cleanUrl = url.replace('x.com', 'twitter.com').split('?')[0];
+            return `
+            <div class="tmp-embed-block">
+                <div class="tmp-embed-media">
+                    <blockquote class="twitter-tweet" data-dnt="true" data-theme="light" data-align="center">
+                        <a href="${cleanUrl}"></a>
+                    </blockquote>
+                </div>
+                ${captionHtml}
+            </div>`;
+        } 
+        else if (platform === 'youtube') {
+            const videoIdMatch = url.match(/(?:v=|\/embed\/|\/shorts\/|youtu\.be\/|\/v\/|\/live\/)([a-zA-Z0-9_-]{11})/);
+            if (videoIdMatch) {
+                return `
+                <div class="tmp-embed-block">
+                    <div class="tmp-embed-media responsive-iframe-container" style="padding-top: 56.25%; position: relative; max-width: 100%;">
+                        <iframe src="https://www.youtube.com/embed/${videoIdMatch[1]}?rel=0&modestbranding=1" 
+                            frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                        </iframe>
+                    </div>
+                    ${captionHtml}
+                </div>`;
             }
-        });
+        }
+        return null;
     }
 
-    // Initialize everything
+    postBodies.forEach(body => {
+        // LAYER 1: Catch raw text [twitter-video|caption](url) that Jekyll failed to parse
+        const rawMarkdownRegex = /\[(twitter-video|twitter|youtube|instagram|instagram-video|facebook|tiktok|telegram|linkedin|reddit)([^\]]*)\]\((https?:\/\/[^\s)]+)\)/gi;
+        
+        body.innerHTML = body.innerHTML.replace(rawMarkdownRegex, (match, platform, caption, url) => {
+            const widget = getWidgetHTML(platform, caption, url);
+            return widget ? widget : match;
+        });
+
+        // LAYER 2: Catch standard links <a href="url">twitter-video|caption</a> that Jekyll DID parse
+        const links = body.querySelectorAll('a');
+        links.forEach(link => {
+            const text = link.textContent.trim();
+            const url = link.href;
+            
+            const match = text.match(/^(twitter-video|twitter|youtube|instagram|instagram-video|facebook|tiktok|telegram|linkedin|reddit)(.*)$/i);
+            
+            if (match) {
+                const platform = match[1];
+                const caption = match[2];
+                const widget = getWidgetHTML(platform, caption, url);
+                
+                if (widget) {
+                    const wrapper = document.createElement('div');
+                    wrapper.innerHTML = widget.trim();
+                    
+                    if (link.parentElement.tagName === 'P' && link.parentElement.textContent.trim() === text) {
+                        link.parentElement.replaceWith(wrapper.firstChild);
+                    } else {
+                        link.replaceWith(wrapper.firstChild);
+                    }
+                }
+            }
+        });
+        
+        body.classList.add('content-loaded');
+    });
+}
     function initialize() {
         console.log('Initializing embed system with gap removal...');
         

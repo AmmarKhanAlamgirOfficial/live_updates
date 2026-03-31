@@ -34,6 +34,19 @@ jobs:
             // UPDATED: Changed limit to 200
             const POSTS_TO_KEEP = 200;
 
+            // This function cleans the HTML junk and converts it to markdown spacing
+            function cleanContentForMarkdown(content) {
+                if (!content) return '';
+                return content
+                    .replace(/&nbsp;/gi, ' ')  
+                    .replace(/<div>\s*<br\s*\/?>\s*<\/div>/gi, '\n\n') 
+                    .replace(/<div[^>]*>/gi, '\n\n')           
+                    .replace(/<\/div>/gi, '')                 
+                    .replace(/<br\s*\/?>/gi, '\n')             
+                    .replace(/\n{3,}/g, '\n\n')                
+                    .trim();
+            }
+
             async function run() {
               console.log('Fetching all posts to determine which to archive...');
               const { data: allPosts, error: fetchError } = await supabase
@@ -65,7 +78,9 @@ jobs:
                   views: view_count
                 };
                 
-                const fileContent = matter.stringify(content || '', frontmatter);
+                // CLEAN THE CONTENT BEFORE SAVING IT
+                const cleanedContent = cleanContentForMarkdown(content);
+                const fileContent = matter.stringify(cleanedContent, frontmatter);
                 
                 const date = new Date(timestamp);
                 const safeHeadline = (headline || 'update').replace(/[^a-z0-9]/gi, '-').toLowerCase();

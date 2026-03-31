@@ -10,4 +10,4 @@ views: 68
 ---
 ![Featured Image](https://i.ibb.co/pjkRVbwg/7v1li80k-narendra-modi-625x300-22-February-26.jpg)
 
-<div>During the 2024 elections, Prime Minister Narendra Modi made Islamophobic remarks in 110 speeches, referring to Muslims as "infiltrators" with more children. Human Rights Watch criticized this as inciting discrimination and violence, fueling hostility against Muslims to consolidate Hindu votes.</div>
+During the 2024 elections, Prime Minister Narendra Modi made Islamophobic remarks in 110 speeches, referring to Muslims as "infiltrators" with more children. Human Rights Watch criticized this as inciting discrimination and violence, fueling hostility against Muslims to consolidate Hindu votes.

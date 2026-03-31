@@ -10,4 +10,4 @@ views: 47
 ---
 ![Featured Image](https://i.ibb.co/wh6kWZqR/IMG-20260222-195916-451.jpg)
 
-<div>The image is clearly AI-generated and requires no further explanation.</div>
+The image is clearly AI-generated and requires no further explanation.

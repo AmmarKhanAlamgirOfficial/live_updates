@@ -7,4 +7,3 @@ tags:
   - HAMAS
   - PALESTINE
 ---
-
