@@ -1,3 +1,9 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 # Ignore the Jekyll build output
 _site/
 
@@ -5,3 +11,7 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
+
+# OS generated files
+.DS_Store
+thumbs.db
