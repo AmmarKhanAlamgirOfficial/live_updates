@@ -17,4 +17,8 @@ tags:
   - PALESTINE
   - TRUMP
 ---
-[youtube|](https://youtu.be/4jpC_6WQN7A)
+<div class="embed-container">
+<div class="responsive-iframe-container">
+  <iframe src="https://www.youtube.com/embed/4jpC_6WQN7A?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>

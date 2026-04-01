@@ -151,8 +151,17 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Loop through and reveal the next batch
             for (let i = 0; i < postsToReveal && i < hiddenPosts.length; i++) {
-                hiddenPosts[i].style.display = 'block';
-                hiddenPosts[i].classList.remove('hidden-post');
+                const post = hiddenPosts[i];
+                post.style.display = 'block';
+                post.classList.remove('hidden-post');
+                
+                // WAKE UP EMBEDS: Tell Twitter/Instagram to re-process the newly revealed widgets
+                if (window.twttr && window.twttr.widgets) {
+                    window.twttr.widgets.load(post);
+                }
+                if (window.instgrm && window.instgrm.Embeds) {
+                    window.instgrm.Embeds.process(post);
+                }
             }
             
             // If we've revealed all the posts, hide the button

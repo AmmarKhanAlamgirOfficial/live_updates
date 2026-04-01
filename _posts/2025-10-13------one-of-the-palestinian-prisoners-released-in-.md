@@ -7,4 +7,8 @@ tags:
   - HAMAS
   - EXCHANGE DEAL
 ---
-[youtube|](https://youtu.be/e07SwhRXAcA)
+<div class="embed-container">
+<div class="responsive-iframe-container">
+  <iframe src="https://www.youtube.com/embed/e07SwhRXAcA?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>

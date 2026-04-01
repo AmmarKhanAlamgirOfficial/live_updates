@@ -1,4 +1,3 @@
-
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 
 :root {
@@ -32,8 +31,8 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-page); color
 .live-post-author { font-weight: 700; color: var(--text-black); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; }
 .live-post-time { font-weight: 700; color: var(--bbc-red); margin-left: auto; display: flex; align-items: center; }
 
-/* Logo SVG */
-.post-author-logo { width: 24px; height: 24px; color: #3498D8; }
+/* Logo SVG Size Lock (Prevents them from getting huge) */
+.post-author-logo { width: 24px !important; height: 24px !important; color: #3498D8; flex-shrink: 0; }
 .post-author-logo .tmp-text { font-family: serif; font-size: 75px; font-weight: 700; fill: #141414; }
 .post-author-logo .square { fill: currentColor; }
 .post-author-logo .static-circle { display: block; stroke: currentColor; }
@@ -73,42 +72,6 @@ body.android-app-view .app-only-feature { display: flex !important; }
 .live-indicator .dot { display: inline-block; width: 10px; height: 10px; background-color: var(--bbc-red); border-radius: 50%; animation: glow 1.5s infinite ease-in-out; }
 @keyframes glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-/* Mobile fixes */
-@media (max-width: 640px) {
-    .live-container { padding: 0 0 4rem 0; }
-    .live-header { padding-left: 1rem; padding-right: 1rem; }
-    .live-post { border-left: none; border-right: none; margin-bottom: 1rem; }
-    .live-post-content { padding: 1.25rem 1rem 0.75rem 1rem; }
-}
-
-/* --- EMBED LAYOUT FIX --- */
-.embed-container {
-    display: block !important;
-    width: 100% !important;
-    margin: 1.5rem 0 !important;
-    clear: both !important;
-}
-
-/* Force Twitter and YouTube iframes to expand to full width and clear floats */
-.embed-container blockquote, 
-.embed-container iframe, 
-.twitter-tweet {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-    clear: both !important;
-}
-
-/* Force caption to sit perfectly below the video */
-.embed-caption,
-.media-caption {
-    display: block !important;
-    width: 100% !important;
-    margin-top: 12px !important;
-    text-align: left !important;
-    clear: both !important;
-}
 
 /* --- BULLETPROOF EMBED LAYOUT --- */
 .tmp-embed-block {
@@ -142,5 +105,47 @@ body.android-app-view .app-only-feature { display: flex !important; }
     border-left: 3px solid var(--bbc-red) !important;
     padding-left: 10px !important;
     margin-top: 12px !important;
+    display: block !important;
+}
+
+/* Mobile fixes - Kept safely at the very bottom where it belongs */
+@media (max-width: 640px) {
+    .live-container { padding: 0 0 4rem 0; }
+    .live-header { padding-left: 1rem; padding-right: 1rem; }
+    .live-post { border-left: none; border-right: none; margin-bottom: 1rem; }
+    .live-post-content { padding: 1.25rem 1rem 0.75rem 1rem; }
+}
+
+/* --- CENTERED EMBED LAYOUT --- */
+
+/* 1. The main wrapper: Forces a vertical stack and centers everything */
+.embed-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Centers the video horizontally */
+    width: 100% !important;
+    margin: 2rem 0 !important;
+    clear: both !important;
+}
+
+/* 2. The Video/Tweet: Locks it to the center with a max width */
+.embed-container blockquote.twitter-tweet,
+.embed-container iframe {
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 550px !important; /* Twitter's optimal layout width */
+    display: block !important;
+}
+
+/* 3. The Caption: Aligns perfectly underneath the centered video */
+.embed-container .embed-caption {
+    width: 100% !important;
+    max-width: 550px !important; /* Matches the video width exactly */
+    margin: 12px auto 0 auto !important;
+    text-align: left !important; /* Keeps the text itself aligned left for readability */
+    font-size: 0.85rem !important;
+    color: var(--text-muted, #555555) !important;
+    border-left: 3px solid var(--bbc-red, #b80000) !important;
+    padding-left: 10px !important;
     display: block !important;
 }

@@ -10,4 +10,8 @@ timestamp: '2025-10-15T14:24:43.596983+00:00'
 tags:
   - BREAKING
 ---
-[youtube|](https://youtu.be/g7mSz8_g2vg)
+<div class="embed-container">
+<div class="responsive-iframe-container">
+  <iframe src="https://www.youtube.com/embed/g7mSz8_g2vg?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>

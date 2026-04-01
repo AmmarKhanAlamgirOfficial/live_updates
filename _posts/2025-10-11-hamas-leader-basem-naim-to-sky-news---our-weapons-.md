@@ -15,4 +15,8 @@ tags:
   - Hamas
   - Palestine
 ---
-[youtube|](https://youtu.be/17koHUkIAsU)
+<div class="embed-container">
+<div class="responsive-iframe-container">
+  <iframe src="https://www.youtube.com/embed/17koHUkIAsU?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>

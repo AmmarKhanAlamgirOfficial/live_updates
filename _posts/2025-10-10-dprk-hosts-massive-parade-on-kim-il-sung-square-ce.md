@@ -12,4 +12,8 @@ tags:
   - BREAKING
   - NORTH KOREA
 ---
-[youtube|](https://youtu.be/lE8Iq_n1ETg)
+<div class="embed-container">
+<div class="responsive-iframe-container">
+  <iframe src="https://www.youtube.com/embed/lE8Iq_n1ETg?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>

@@ -12,4 +12,8 @@ tags:
   - RUSSIA
   - AFGHANISTAN
 ---
-[youtube|](https://youtu.be/nj7UH9tGtCA)
+<div class="embed-container">
+<div class="responsive-iframe-container">
+  <iframe src="https://www.youtube.com/embed/nj7UH9tGtCA?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>

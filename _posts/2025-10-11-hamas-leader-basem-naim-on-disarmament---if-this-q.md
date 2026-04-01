@@ -13,4 +13,8 @@ tags:
   - sky news
   - basem naim
 ---
-[youtube|](https://youtu.be/ldcnnrlCBdQ)
+<div class="embed-container">
+<div class="responsive-iframe-container">
+  <iframe src="https://www.youtube.com/embed/ldcnnrlCBdQ?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>

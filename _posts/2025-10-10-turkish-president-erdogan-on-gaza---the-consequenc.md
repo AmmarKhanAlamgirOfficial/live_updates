@@ -10,4 +10,8 @@ tags:
   - ERDOGAN
   - PALESTINE
 ---
-[youtube|](https://youtu.be/jCJUsQR4teU)
+<div class="embed-container">
+<div class="responsive-iframe-container">
+  <iframe src="https://www.youtube.com/embed/jCJUsQR4teU?rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
